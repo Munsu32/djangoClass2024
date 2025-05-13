@@ -6,6 +6,23 @@ class TestView(TestCase):
     def setUp(self):
         self.client = Client()
 
+    def navbar_test(self, soup):
+        navbar=soup.nav
+        self.assertIn('블로그', navbar.text)
+        self.assertIn('어바웃 미', navbar.text)
+
+        logo_btn=navbar.find('a', text='두잇장고')
+        self.assertEqual(logo_btn.attrs['href'],'/')
+
+        home_btn=navbar.find('a', text='홈')
+        self.assertEqual(home_btn.attrs['href'],'/')
+
+        blog_btn=navbar.find('a', text='블로그')
+        self.assertEqual(blog_btn.attrs['href'],'/blog/')
+
+        about_me_btn=navbar.find('a', text='어바웃 미')
+        self.assertEqual(about_me_btn.attrs['href'],'/about_me/')
+
     def test_post_list(self):
         # 1.1 포스트 목록 페이지를 가져온다.
         response = self.client.get('/blog/')
@@ -18,11 +35,12 @@ class TestView(TestCase):
         soup = BeautifulSoup(response.content, 'html.parser')
         self.assertEqual(soup.title.text, 'Blog')
 
-        # 1.4 네비게이션 바가 있다.
-        navbar=soup.nav
-        # 1.5 Blog, About Me라는 문구가 네비게이션 바에 있다.
-        self.assertIn('블로그', navbar.text)
-        self.assertIn('어바웃 미', navbar.text)
+        # # 1.4 네비게이션 바가 있다.
+        # navbar=soup.nav
+        # # 1.5 Blog, About Me라는 문구가 네비게이션 바에 있다.
+        # self.assertIn('블로그', navbar.text)
+        # self.assertIn('어바웃 미', navbar.text)
+        self.navbar_test(soup)
 
         # 2.1 메인 영역에 게시물이 하나도 없다면
         self.assertEqual(Post.objects.count(), 0)
@@ -62,24 +80,30 @@ class TestView(TestCase):
         )
 
         # 1.2. 그 포스트의 url은 '/blog/1/' 이다.
-        self.assertEqual(post_001.get_absolute_url(), '/blog/blog/1/')
+        self.assertEqual(post_001.get_absolute_url(), '/blog/1/')
 
         # 2. 첫 번째 포스트의 상세 페이지 테스트
         # 2.1. 첫 번째 포스트의 url로 접근하면 정상적으로 작동한다(sttus code : 200).
         response=self.client.get(post_001.get_absolute_url())
         self.assertEqual(response.status_code, 200)
         soup = BeautifulSoup(response.content, 'html.parser')
-        # 2.2. 포스트 목록 페이지와 똑같은 네비게이션 바가 있다.
-        navbar=soup.nav
-        self.assertIn('Blog',navbar.text)
-        self.assertIn('About Me', navbar.text)
+
+        # # 2.2. 포스트 목록 페이지와 똑같은 네비게이션 바가 있다.
+        self.navbar_test(soup)
+        # navbar=soup.nav
+        # self.assertIn('Blog',navbar.text)
+        # self.assertIn('About Me', navbar.text)
+        
         # 2.3. 첫 번째 포스트의 제목이 웹 브라우저 탭 타이틀에 들어 있다.
         self.assertIn(post_001.title, soup.title.text)
+
         # 2.4. 첫 번째 포스트의 제목이 포스트 영역에 있다.
         main_area=soup.find('div', id='main-area')
         post_area=main_area.find('div', id='post-area')
         self.assertIn(post_001.title, post_area.text)
+
         # 2.5. 첫 번째 포스트의 작성자(author)가 포스트 영역에 있다.(아직 구현할 수 없음).
+
         # 2.6. 첫 번째 포스트의 내용(contnet)이 포스트 영역에 있다.
         self.assertIn(post_001.content, post_area.text)
 

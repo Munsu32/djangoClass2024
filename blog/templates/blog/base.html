@@ -14,72 +14,8 @@
 -->   
 </head>
 <body>
-    
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="./Index.html">두잇장고</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="./Index.html"><i class="fa-solid fa-house"></i>&nbsp 홈<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./blog_list.html"><i class="fa-solid fa-blog"></i>&nbsp 블로그</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./about_me.html">어바웃 미</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            빠른 이동
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="https://www.naver.com"><i class="fa-solid fa-n"></i>&nbsp 네이버</a>
-                            <a class="dropdown-item" href="https://www.gamesaien.com/game/fruit_box_a/"><i class="fa-solid fa-apple-whole"></i>&nbsp 사과게임</a>
-                            <a class="dropdown-item" href="https://gemini.google.com/app?is_sa=1&is_sa=1&android-min-version=301356232&ios-min-version=322.0&campaign_id=bkws&utm_source=sem&utm_source=google&utm_medium=paid-media&utm_medium=cpc&utm_campaign=bkws&utm_campaign=2024koKR_gemfeb&pt=9008&mt=8&ct=p-growth-sem-bkws&gad_source=1&gclid=EAIaIQobChMIo7vZl5yTjAMV_4u5BR032wRpEAAYASAAEgI4zPD_BwE&gclsrc=aw.ds"><i class="fa-solid fa-magnifying-glass"></i>&nbsp 잼민이</a>
-                        </div>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <!-- Button trigger modal(Log in) -->
-                        <a class="nav-link" href="#" data-toggle="modal" data-target="#LoginModal">Log In</a>
-                        <!-- Modal -->
-                        <div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="LoginModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="LoginModalLabel"><i class="fa-solid fa-right-to-bracket"></i>&nbsp Log in</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-md-auto">
-                                                <button type="button" class="btn btn-outline-primary btn-block btn-sm"><i class="fa-brands fa-google"></i>&nbsp Log in with Google</button>
-                                                <button type="button" class="btn btn-outline-secondary btn-block btn-sm"><i class="fa-solid fa-envelope"></i>&nbsp Log in with E-mail</button>
-                                            </div>
-                                            <div class="col-md-auto">
-                                                <button type="button" class="btn btn-outline-danger btn-block btn-sm"><i class="fa-solid fa-envelope"></i>&nbsp Sign Up with Email</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+    {% include 'blog/navbar.html' %}
+      
     <div class="container my-3">
         <div class="row">
             <div class="col-md-8 col-lg-9" id="main-area">
@@ -146,10 +82,7 @@
             <li class="page-item"><a class="page-link" href="#!">Older</a></li>
         </ul>
     </nav>
-    <!-- Footer-->
-    <footer class="py-5 bg-dark">
-        <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
-    </footer>
+    {% include 'blog/footer.html' %}
 </body>
 </html>
 
