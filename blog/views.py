@@ -9,6 +9,7 @@ class PostList(ListView):
 
 class PostDetail(DetailView):
     model = Post
+    # template_name = 'blog/single_post_page.html'
     template_name = 'blog/single_post_page.html'
 
 # def index(request):
