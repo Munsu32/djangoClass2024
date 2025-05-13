@@ -24,7 +24,7 @@
                         </div>
                         <div class="card-footer text-muted">
                             Posted on {{ p.created_at }} by
-                            <a href="#">작성자명 쓸 위치</a>
+                            <a href="#">{{ p.author | upper }}</a>
                         </div>
                     </div>
                 {% endfor %} 
@@ -92,7 +92,7 @@
             <li class="page-item"><a class="page-link" href="#!">Older</a></li>
         </ul>
     </nav>
-    
+
 {% endblock %}
 
 <!-- <!DOCTYPE html>
