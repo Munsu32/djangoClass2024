@@ -24,7 +24,7 @@ class Category(models.Model):
         return f'/blog/category/{self.slug}/'
     
     class Meta:
-        verbose_name_plural='Categories'
+        verbose_name_plural = 'Categories'
 
 class Post(models.Model):
     title = models.CharField(max_length=30)

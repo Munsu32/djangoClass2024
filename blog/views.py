@@ -1,6 +1,7 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView
-from .models import Post, Category
+from django.shortcuts import render, redirect
+from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Post, Category, Tag
 
 class PostList(ListView):
     model = Post
@@ -20,7 +21,7 @@ class PostDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(PostDetail, self).get_context_data()
         context['categories'] = Category.objects.all()
-        context['no_category_post_count'] = post.objects.filter(category=None).count()
+        context['no_category_post_count'] = Post.objects.filter(category=None).count()
         return context
     # template_name = 'blog/single_post_page.html'
     
@@ -36,13 +37,31 @@ def category_page(request, slug):
         request,
         'blog/post_list.html',
         {
-            'post_list' : Post.objects.filter(category=category),
+            'post_list' : post_list,
             'categories': Category.objects.all(),
             'no_category_post_count' : Post.objects.filter(category=None).count(),
             'category': category,
         }
     )
 
+def tag_page(request, slug):
+    tag=Tag.objects.get(slug=slug)
+    post_list=tag.post_set.all()
+
+    return render(
+        request,
+        'blog/post_list.html',
+        {
+            'post_list' : post_list,
+            'tag' : tag,
+            'categories': Category.objects.all(),
+            'no_category_post_count' : Post.objects.filter(category=None).count(),
+        }
+    )
+
+class PostCreate(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['title', 'hook_text', 'content', 'head_image', 'file_upload', 'category']
 
 # def index(request):
 #     posts=Post.objects.all().order_by('-pk')
